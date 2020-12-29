@@ -1,4 +1,4 @@
-# React-Cocktail
+# React-CocktailRecipe
 
 React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들자
 
