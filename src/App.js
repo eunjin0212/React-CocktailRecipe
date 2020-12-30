@@ -1,5 +1,13 @@
+import Main from "./Main";
+import GlobalStyles from "./GlobalStyles";
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <GlobalStyles />
+      <Main />
+    </>
+  );
 }
 
 export default App;

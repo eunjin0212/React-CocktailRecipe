@@ -1,0 +1,20 @@
+import { useState, useEffect } from "react";
+
+function useFetch(url) {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  async function fetchUrl() {
+    const response = await fetch(url);
+    const json = await response.json();
+    setData(json);
+    setLoading(false);
+  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchUrl();
+    }, 2000);
+    return () => clearTimeout(timer);
+  });
+  return [data, loading];
+}
+export default useFetch;
