@@ -1,19 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import useFetch from "./useFetch";
-import "./font.css";
+import useFetch from "../Components/useFetch";
+import Header from "../Components/Header";
+import Search from "../Screens/Search";
+import "../Components/font.css";
 
-const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 const Main = () => {
+  const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
   const [data, loading] = useFetch(url);
-  console.log([data.drinks]);
   return (
-    <>
+    <Wrapper>
+      <Header />
       {loading ? (
         "Loading..."
       ) : (
-        <Wrapper>
-          <Header>My Cocktail Recipe</Header>
+        <>
           {data.drinks.map(
             ({ idDrink, strDrink, strAlcoholic, strGlass, strDrinkThumb }) => (
               <Container>
@@ -22,21 +23,17 @@ const Main = () => {
               </Container>
             )
           )}
-        </Wrapper>
+        </>
       )}
-    </>
+      <Search />
+    </Wrapper>
   );
 };
 export default Main;
-const Wrapper = styled.div``;
-const Header = styled.div`
-  text-align: center;
-  color: white;
-  font-size: 80px;
-  margin: 50px 0px 80px 0px;
-  font-weight: 900;
-  text-shadow: #76ff03 1px 1px 20px;
-  font-family: "Yellowtail", cursive;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Container = styled.div`

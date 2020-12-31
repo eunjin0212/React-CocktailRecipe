@@ -10,11 +10,8 @@ function useFetch(url) {
     setLoading(false);
   }
   useEffect(() => {
-    const timer = setTimeout(() => {
-      fetchUrl();
-    }, 2000);
-    return () => clearTimeout(timer);
-  });
+    fetchUrl();
+  }, []);
   return [data, loading];
 }
 export default useFetch;
