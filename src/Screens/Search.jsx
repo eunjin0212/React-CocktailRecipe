@@ -1,43 +1,50 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import useFetch from "../Components/useFetch";
+import axios from "axios";
 
 const Searchs = () => {
   const url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s";
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((res) => {
+        console.log(res);
+        setResults(res.data.drinks);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  let update = results.filter(({ strDrink }) => {
+    return strDrink.toLowerCase().includes(searchTerm);
+  }, []);
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  useEffect(() => {
-    async function fetchUrl() {
-      const response = await fetch(url);
-      const json = await response.json();
-      setData(json);
-      setLoading(false);
-      const results = Object.values(data.drinks).filter(({ strDrink }) =>
-        strDrink.toLowerCase().includes(searchTerm)
-      );
-      setSearchResults(results);
-    }
-    fetchUrl();
-  }, [searchTerm]);
 
   return (
     <Wrapper>
-      <Search
-        type="text"
-        placeholder="재료 또는 이름을 검색하세요"
-        value={searchTerm}
-        onChange={handleChange}
-      />
+      <form>
+        <Search
+          type="text"
+          placeholder="재료 또는 이름을 검색하세요"
+          value={searchTerm}
+          onChange={handleChange}
+        />
+      </form>
       <ul>
-        {searchResults.map((item, index) => (
-          <li key={index}>{item.strDrink}</li>
-        ))}
+        {(searchTerm === "" ? results : update).map(
+          ({ idDrink, strAlcoholic, strDrinkThumb, strDrink }) => (
+            <ul>
+              <li key={`${idDrink}`}>{strDrink}</li>
+            </ul>
+          )
+        )}
       </ul>
     </Wrapper>
   );
@@ -69,3 +76,4 @@ const Form = styled.form``;
 const Submit = styled.input`
   boder: none;
 `;
+const Results = styled.div``;
