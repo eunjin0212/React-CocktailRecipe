@@ -1,51 +1,50 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import Detail from "./Detail";
 
 const Searchs = () => {
-  const url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s";
-
-  const [searchTerm, setSearchTerm] = useState("");
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
+  const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
+  const [search, setSearch] = useState([]);
 
   useEffect(() => {
     axios
       .get(url)
       .then((res) => {
-        console.log(res);
         setResults(res.data.drinks);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  let update = results.filter(({ strDrink }) => {
-    return strDrink.toLowerCase().includes(searchTerm);
-  }, []);
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  }, [term]);
+  useEffect(() => {
+    setSearch(
+      results.filter((result) => {
+        return (
+          result.strDrink.toLowerCase().includes(term.toLowerCase()),
+          result.strIngredient1.toLowerCase().includes(term.toLowerCase()),
+          result.strIngredient2.toLowerCase().includes(term.toLowerCase())
+        );
+      })
+    );
+  }, [term, results]);
 
   return (
     <Wrapper>
-      <form>
-        <Search
-          type="text"
-          placeholder="재료 또는 이름을 검색하세요"
-          value={searchTerm}
-          onChange={handleChange}
-        />
-      </form>
-      <ul>
-        {(searchTerm === "" ? results : update).map(
-          ({ idDrink, strAlcoholic, strDrinkThumb, strDrink }) => (
-            <ul>
-              <li key={`${idDrink}`}>{strDrink}</li>
-            </ul>
-          )
-        )}
-      </ul>
+      <Search
+        type="text"
+        placeholder="재료 또는 이름을 검색하세요"
+        value={term}
+        onChange={(e) => setTerm(e.target.value)}
+      />
+      {search.map((result, i) => (
+        <div key={i}>
+          {" "}
+          {(result.strDrink, result.strIngredient1, result.strIngredient2)}
+        </div>
+      ))}
     </Wrapper>
   );
 };
@@ -58,8 +57,7 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 const Search = styled.input`
-  margin-top: 30px;
-  border: none;
+  margin: 30px 0px;
   width: 300px;
   height: 35px;
   background: none;
@@ -72,8 +70,3 @@ const Search = styled.input`
     width: 500px;
   }
 `;
-const Form = styled.form``;
-const Submit = styled.input`
-  boder: none;
-`;
-const Results = styled.div``;

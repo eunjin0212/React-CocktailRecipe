@@ -13,14 +13,14 @@ const globalStyles = createGlobalStyle`
     }
     body {
         background-image: url(${bg});
-        background-repeat: no-repeat;
+        background-repeat: repeat(colunm);
         background-size: cover;
         margin: 0px;
         padding: 0px;
         color: #2e363e;
         box-sizing: border-box;
         width: 100vw;
-        height: 100vh;
+        height: auto;
         user-select: none;
         -ms-overflow-style: none; 
         &::-webkit-scrollbar { 

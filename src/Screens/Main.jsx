@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import useFetch from "../Components/useFetch";
-import Header from "../Components/Header";
 import Search from "../Screens/Search";
 import "../Components/font.css";
 
@@ -10,7 +9,6 @@ const Main = () => {
   const [data, loading] = useFetch(url);
   return (
     <Wrapper>
-      <Header />
       {loading ? (
         "Loading..."
       ) : (
