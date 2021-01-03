@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Detail from "./Detail";
 
-const Searchs = () => {
-  const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
+const Searchs = (props) => {
   const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
   const [search, setSearch] = useState([]);
 
   useEffect(() => {
+    let url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a`;
     axios
       .get(url)
       .then((res) => {
@@ -30,7 +30,21 @@ const Searchs = () => {
       })
     );
   }, [term, results]);
-
+  const searchResults = results.map((result) => {
+    if (
+      term ===
+      (result.strDrink || result.strIngredient1 || result.strIngredient2)
+    ) {
+      return (
+        <>
+          <div key={result.idDrink}>{result.strDrink}</div>
+          <div>{result.strIngredient1}</div>
+        </>
+      );
+    } else {
+      return null;
+    }
+  });
   return (
     <Wrapper>
       <Search
@@ -39,12 +53,7 @@ const Searchs = () => {
         value={term}
         onChange={(e) => setTerm(e.target.value)}
       />
-      {search.map((result, i) => (
-        <div key={i}>
-          {" "}
-          {(result.strDrink, result.strIngredient1, result.strIngredient2)}
-        </div>
-      ))}
+      <div>{searchResults}</div>
     </Wrapper>
   );
 };
@@ -54,7 +63,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
+  margin-bottom: 20px;
+  color: white;
 `;
 const Search = styled.input`
   margin: 30px 0px;

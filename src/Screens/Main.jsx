@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import useFetch from "../Components/useFetch";
 import Search from "../Screens/Search";
+import Header from "../Components/Header";
 import "../Components/font.css";
 
 const Main = () => {
@@ -13,6 +14,7 @@ const Main = () => {
         "Loading..."
       ) : (
         <>
+          <Header />
           {data.drinks.map(
             ({ idDrink, strDrink, strAlcoholic, strGlass, strDrinkThumb }) => (
               <Container>
