@@ -10,6 +10,11 @@ React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들�
   > - 눌렀을 때 Detail 화면 모든 정보
 - git commit message 신경쓰기
 
+## IMPLEMENT
+
+> - useState를 이용해서 Data 받기
+> - useParams : Router에 `:속성`을 match로 가져올 수 있음 (Detail page에서 클릭한 칵테일의 id를 useParams으로 넘겨서 Api를 받아옴)
+
 Git Commit Message
 
 #### FIX

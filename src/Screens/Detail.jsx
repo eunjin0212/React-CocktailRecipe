@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
@@ -21,6 +22,7 @@ const Detail = () => {
   }, [id]);
   return (
     <Wrapper>
+      <MainLink to="/">Main</MainLink>
       {data.map((result) => {
         return (
           <Container>
@@ -68,11 +70,20 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   color: white;
 `;
+const MainLink = styled(Link)`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+`;
 const Container = styled.div`
-  margin-bottom: 30px;
+  margin: 20px 0px;
   width: 70%;
   background-color: black;
   box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.5);

@@ -1,27 +1,39 @@
 import React from "react";
 import styled from "styled-components";
-import useFetch from "../Components/useFetch";
+import { useState, useEffect } from "react";
 import Search from "./Search";
-
-import Header from "../Components/Header";
+import { Link } from "react-router-dom";
 import "../Components/font.css";
 
 const Main = () => {
   const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-  const [data, loading] = useFetch(url);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  async function fetchUrl() {
+    const response = await fetch(url);
+    const json = await response.json();
+    setData(json);
+    setLoading(false);
+  }
+  useEffect(() => {
+    fetchUrl();
+  }, []);
+
   return (
     <Wrapper>
       {loading ? (
         "Loading..."
       ) : (
         <>
-          <Header />
           {data.drinks.map(
             ({ idDrink, strDrink, strAlcoholic, strGlass, strDrinkThumb }) => (
-              <Container>
-                <img src={`${strDrinkThumb}`} alt="" />
-                <div key={`${idDrink}`}>{`${strDrink}`}</div>
-              </Container>
+              <Link to={`/${idDrink}`}>
+                <Container>
+                  <img src={`${strDrinkThumb}`} alt="" />
+                  <div key={`${idDrink}`}>{`${strDrink}`}</div>
+                </Container>
+              </Link>
             )
           )}
         </>
