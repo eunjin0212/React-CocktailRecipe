@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import useFetch from "../Components/useFetch";
-import Search from "../Screens/Search";
+import Search from "./Search";
+
 import Header from "../Components/Header";
 import "../Components/font.css";
 

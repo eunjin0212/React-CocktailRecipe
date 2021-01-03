@@ -9,7 +9,6 @@ import Main from "../Screens/Main";
 import Detail from "../Screens/Detail";
 import Header from "./Header";
 
-// eslint-disable-next-line
 export default () => (
   <Router>
     <div>

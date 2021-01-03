@@ -1,11 +1,11 @@
-import Main from "./Screens/Main";
 import GlobalStyles from "./Components/GlobalStyles";
+import Router from "./Components/Router";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <Main />
+      <Router />
     </>
   );
 }
