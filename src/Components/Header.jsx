@@ -11,4 +11,5 @@ const Header = styled.div`
   font-weight: 900;
   text-shadow: #76ff03 1px 1px 20px;
   font-family: "Yellowtail", cursive;
+  width: 100%;
 `;

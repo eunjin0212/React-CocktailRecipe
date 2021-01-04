@@ -83,14 +83,21 @@ const MainLink = styled(Link)`
   height: 30px;
 `;
 const Container = styled.div`
-  margin: 20px 0px;
-  width: 70%;
   background-color: black;
   box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.5);
   display: flex;
+  width: 70%;
   div {
     display: flex;
     margin-bottom: 20px;
+  }
+  @media screen and (max-width: 460px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 830px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 const About = styled.div`
@@ -106,10 +113,19 @@ const Image = styled.div`
   img {
     width: 300px;
     height: 300px;
-    margin-bottom: 20px;
     border-radius: 10px;
     border: 1px solid whitesmoke;
     box-shadow: 10px 10px 10px 1px rgba(244, 244, 244, 0.3);
+  }
+  @media screen and (max-width: 830px) {
+    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
+    img {
+      margin: 0;
+      width: 200px;
+      height: 200px;
+    }
   }
 `;
 const Name = styled.div`

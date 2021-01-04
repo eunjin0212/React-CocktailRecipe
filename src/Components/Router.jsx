@@ -11,7 +11,7 @@ import Header from "./Header";
 
 export default () => (
   <Router>
-    <div>
+    <div className="router">
       <Header />
       <Switch>
         <Route path="/" exact component={Main} />

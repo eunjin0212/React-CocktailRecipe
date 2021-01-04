@@ -57,4 +57,9 @@ const Search = styled.input`
     background-color: rgba(255, 255, 255, 0.5);
     width: 500px;
   }
+  @media only screen and (max-width: 460px) {
+    :focus {
+      width: 350px;
+    }
+  }
 `;

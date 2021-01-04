@@ -19,4 +19,11 @@ const Wrapper = styled.div`
   height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+
+  @media only screen and (max-width: 460px) {
+    grid-template-columns: repeat(auto-fill, minmax(50%, auto));
+  }
+  @media only screen and (max-width: 829px) {
+    grid-template-columns: repeat(auto-fill, minmax(40%, auto));
+  }
 `;

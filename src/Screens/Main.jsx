@@ -21,7 +21,7 @@ const Main = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper className="main">
       {loading ? (
         "Loading..."
       ) : (
@@ -30,7 +30,7 @@ const Main = () => {
             ({ idDrink, strDrink, strAlcoholic, strGlass, strDrinkThumb }) => (
               <Link to={`/${idDrink}`}>
                 <Container>
-                  <img src={`${strDrinkThumb}`} alt="" />
+                  <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
                   <div key={`${idDrink}`}>{`${strDrink}`}</div>
                 </Container>
               </Link>
