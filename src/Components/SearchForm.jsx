@@ -16,15 +16,16 @@ const SearchForm = ({ setSearchTerm }) => {
   };
   return (
     <Wrapper>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Search
           type="text"
           name="name"
           id="name"
+          placeholder="이름이나 재료를 검색하세요."
           onChange={searchCocktail}
           ref={searchValue}
         />
-      </form>
+      </Form>
     </Wrapper>
   );
 };
@@ -38,17 +39,22 @@ const Wrapper = styled.div`
   margin-bottom: 20px;
   color: white;
 `;
+const Form = styled.form``;
 const Search = styled.input`
   margin: 30px 0px;
   width: 300px;
   height: 35px;
-  background: none;
-  color: white;
+  color: black;
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
   :focus {
-    color: white;
-    background: none;
+    outline: none;
+    border-radius: 20px;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.5);
     width: 500px;
   }
 `;

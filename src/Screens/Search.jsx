@@ -37,7 +37,7 @@ const Search = () => {
   }, [searchTerm]);
 
   return (
-    <main>
+    <main style={{ width: "100%" }}>
       <SearchForm setSearchTerm={setSearchTerm} />
       <List cocktails={cocktails} />
     </main>

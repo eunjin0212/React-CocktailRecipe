@@ -1,19 +1,22 @@
 import React from "react";
 import Cocktail from "./Cocktail";
+import styled from "styled-components";
 
 const List = ({ cocktails }) => {
-  if (cocktails.length < 1) {
-    return <h2>최소한 두 글자를 입력해주세요!</h2>;
-  }
   return (
-    <div>
-      <div>
-        {cocktails.map((item) => {
-          return <Cocktail key={item.id} {...item} />;
-        })}
-      </div>
-    </div>
+    <Wrapper className="cocktail-list">
+      {cocktails.map((item) => {
+        return <Cocktail key={item.id} {...item} />;
+      })}
+    </Wrapper>
   );
 };
 
 export default List;
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+`;
