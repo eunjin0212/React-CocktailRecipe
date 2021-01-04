@@ -4,10 +4,14 @@ React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들�
 
 [레시피 API](https://www.thecocktaildb.com/api.php)
 
+[레시피 확인하기](https://reactcocktailrecipe.netlify.app/#/)
+
 - Api 사용
 - Main 랜덤 칵테일 리스트
+
   > - Search ingrdient, name
   > - 눌렀을 때 Detail 화면 모든 정보
+
 - git commit message 신경쓰기
 
 ## IMPLEMENT
@@ -17,12 +21,12 @@ React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들�
 
 ## Check List
 
-1. 여러번 랜더링 고치기
-2. 리스트 그리드 디스플레이로 변경
-3. 디테일 스크린 모달창으로 만들기
-4. 리스트 정렬
-5. 텍스트 인풋 백그라운드 투명 ㄴ
-6. 디테일 반응형 스크린으로 만들기
+[ ] 여러번 랜더링 고치기
+[o] 리스트 그리드 디스플레이로 변경
+[ ] 디테일 스크린 모달창으로 만들기
+[o] 리스트 정렬
+[o] 텍스트 인풋 백그라운드 투명 ㄴ
+[ ] 디테일 반응형 스크린으로 만들기
 
 ## Git Commit Message
 
