@@ -3,7 +3,7 @@ import Router from "./Components/Router";
 
 function App() {
   return (
-    <div style={{ width: "100%" }}>
+    <div>
       <GlobalStyles />
       <Router />
     </div>

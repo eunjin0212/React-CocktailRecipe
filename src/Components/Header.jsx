@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import "../Components/font.css";
 
 export default () => {
   return <Header>My Cocktail Recipe</Header>;

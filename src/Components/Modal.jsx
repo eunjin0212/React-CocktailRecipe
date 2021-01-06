@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import Modal from "../Components/Modal";
 
-const Detail = () => {
-  const { id } = useParams();
+const MyModal = ({ onClose, idDrink }) => {
   const [data, setData] = useState([]);
-
+  let id = idDrink;
+  let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   useEffect(() => {
-    let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     axios
       .get(url)
       .then((res) => {
@@ -18,9 +15,9 @@ const Detail = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [id]);
+  }, [url]);
   return (
-    <Modal>
+    <MyModals onClick={onClose}>
       <Wrapper>
         {data.map((result) => {
           return (
@@ -61,11 +58,25 @@ const Detail = () => {
           );
         })}
       </Wrapper>
-    </Modal>
+    </MyModals>
   );
 };
 
-export default Detail;
+export default MyModal;
+
+const MyModals = styled.div`
+  background: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+`;
+
 const Wrapper = styled.div``;
 
 const Container = styled.div`

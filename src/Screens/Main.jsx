@@ -2,23 +2,34 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Search from "./Search";
-import { Link } from "react-router-dom";
-import "../Components/font.css";
+import Modal from "../Components/Modal";
+import Portal from "../Components/Portal";
 
 const Main = () => {
   const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
 
-  async function fetchUrl() {
-    const response = await fetch(url);
-    const json = await response.json();
-    setData(json);
-    setLoading(false);
-  }
   useEffect(() => {
+    async function fetchUrl() {
+      const response = await fetch(url);
+      const json = await response.json();
+      setData(json);
+      setLoading(false);
+    }
+    console.log("얼마나 랜더링 되는가?");
     fetchUrl();
   }, []);
+
+  const handleOpen = () => {
+    setOpen(true);
+    console.log("open Modal");
+  };
+  const handleClose = () => {
+    setOpen(false);
+    console.log("close Modal");
+  };
 
   return (
     <Wrapper className="main">
@@ -28,12 +39,17 @@ const Main = () => {
         <>
           {data.drinks.map(
             ({ idDrink, strDrink, strAlcoholic, strGlass, strDrinkThumb }) => (
-              <Link to={`/${idDrink}`}>
-                <Container>
+              <>
+                <Container onClick={handleOpen}>
                   <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
                   <div key={`${idDrink}`}>{`${strDrink}`}</div>
                 </Container>
-              </Link>
+                {open && (
+                  <Portal>
+                    <Modal idDrink={`${idDrink}`} onClose={handleClose} />
+                  </Portal>
+                )}
+              </>
             )
           )}
         </>
@@ -49,7 +65,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Container = styled.div`
+const Container = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: center;

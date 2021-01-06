@@ -6,18 +6,17 @@ import {
   Redirect,
 } from "react-router-dom";
 import Main from "../Screens/Main";
-import Detail from "../Screens/Detail";
 import Header from "./Header";
 
-export default () => (
+const Routers = () => (
   <Router>
     <div className="router">
       <Header />
       <Switch>
-        <Route path="/" exact component={Main} />
-        <Route path="/:id" component={Detail} />
+        <Route exact path="/" component={Main} />
         <Redirect from="*" to="/" />
       </Switch>
     </div>
   </Router>
 );
+export default Routers;
