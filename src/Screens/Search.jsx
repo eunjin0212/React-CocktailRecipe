@@ -1,11 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import SearchForm from "../Components/SearchForm";
+import Portal from "../Components/Portal";
+import Modal from "../Components/Modal";
 
 const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("a");
   const [cocktails, setCocktails] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("");
 
+  const handleOpen = (idDrink) => {
+    setSelectedItem(idDrink);
+    setOpen(true);
+    console.log("open");
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    console.log("close");
+  };
   useEffect(() => {
     const getDrinks = async () => {
       try {
@@ -13,31 +27,39 @@ const Search = () => {
           `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`
         );
         const data = await response.json();
-        const { drinks } = data;
-        setCocktails(drinks);
+        setCocktails(data);
       } catch (error) {
         console.log(error);
       }
     };
-    console.log("얼마나 랜더링 되는가?");
     getDrinks();
+    console.log("useEffect");
   }, [searchTerm]);
 
   return (
     <main style={{ width: "100%" }}>
       <SearchForm setSearchTerm={setSearchTerm} />
       <Wrapper className="cocktail-list">
-        {cocktails.map((result) => {
-          return (
-            <Container className="cocktail">
+        {/* {cocktails &&
+          cocktails.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
+            <Container
+              className="cocktail"
+              onClick={() => {
+                handleOpen(idDrink);
+              }}
+            >
               <Img>
-                <img src={result.strDrinkThumb} alt={result.strDrink} />
+                <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
               </Img>
-              <Name key={result.idDrink}>{result.strDrink}</Name>
+              <Name key={`${idDrink}`}>{`${strDrink}`}</Name>
             </Container>
-          );
-        })}
+          ))} */}
       </Wrapper>
+      {open && (
+        <Portal>
+          <Modal selectedItem={`${selectedItem}`} onClose={handleClose} />
+        </Portal>
+      )}
     </main>
   );
 };
@@ -57,7 +79,7 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(40%, auto));
   }
 `;
-const Container = styled.div`
+const Container = styled.button`
   width: 100%;
   height: 100%;
   margin: 10px 0px;

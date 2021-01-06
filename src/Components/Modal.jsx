@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-const MyModal = ({ onClose, idDrink }) => {
+const MyModal = ({ onClose, selectedItem }) => {
   const [data, setData] = useState([]);
-  let id = idDrink;
+  let id = selectedItem;
   let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   useEffect(() => {
     axios
@@ -19,6 +19,7 @@ const MyModal = ({ onClose, idDrink }) => {
   return (
     <MyModals onClick={onClose}>
       <Wrapper>
+        <button onClick={onClose}>X</button>
         {data.map((result) => {
           return (
             <Container>
@@ -66,18 +67,24 @@ export default MyModal;
 
 const MyModals = styled.div`
   background: rgba(0, 0, 0, 0.25);
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
-  height: 100%;
+  height: 150%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background-color: whitesmoke;
+  width: 80%;
+  position: relative;
+  top: 100px;
+  box-sizing: border-box;
+  margin-bottom: 50px;
+`;
 
 const Container = styled.div`
   color: black;
@@ -89,7 +96,8 @@ const Container = styled.div`
     margin-bottom: 20px;
   }
   @media screen and (max-width: 460px) {
-    width: 90%;
+    width: 80%;
+    height: 80%;
   }
   @media screen and (max-width: 830px) {
     display: flex;

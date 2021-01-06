@@ -8,52 +8,54 @@ import Portal from "../Components/Portal";
 const Main = () => {
   const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("");
 
   useEffect(() => {
-    async function fetchUrl() {
-      const response = await fetch(url);
-      const json = await response.json();
-      setData(json);
-      setLoading(false);
-    }
-    console.log("얼마나 랜더링 되는가?");
+    const fetchUrl = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        setData(json);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    console.log("useEffect");
     fetchUrl();
   }, []);
 
-  const handleOpen = () => {
+  const handleOpen = (idDrink) => {
+    setSelectedItem(idDrink);
     setOpen(true);
-    console.log("open Modal");
+    console.log("open");
   };
   const handleClose = () => {
     setOpen(false);
-    console.log("close Modal");
+    console.log("close");
   };
 
   return (
     <Wrapper className="main">
-      {loading ? (
-        "Loading..."
-      ) : (
-        <>
-          {data.drinks.map(
-            ({ idDrink, strDrink, strAlcoholic, strGlass, strDrinkThumb }) => (
-              <>
-                <Container onClick={handleOpen}>
-                  <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
-                  <div key={`${idDrink}`}>{`${strDrink}`}</div>
-                </Container>
-                {open && (
-                  <Portal>
-                    <Modal idDrink={`${idDrink}`} onClose={handleClose} />
-                  </Portal>
-                )}
-              </>
-            )
-          )}
-        </>
-      )}
+      {data &&
+        data.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
+          <>
+            <Container
+              onClick={() => {
+                handleOpen(idDrink);
+                console.log(handleOpen(idDrink));
+              }}
+            >
+              <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
+              <div key={`${idDrink}`}>{`${strDrink}`}</div>
+            </Container>
+            {open && (
+              <Portal>
+                <Modal selectedItem={`${selectedItem}`} onClose={handleClose} />
+              </Portal>
+            )}
+          </>
+        ))}
       <Search />
     </Wrapper>
   );
