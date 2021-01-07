@@ -74,7 +74,7 @@ const MyModals = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  height: 100%;
+  height: 2348px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -85,8 +85,8 @@ const MyModals = styled.div`
 const Wrapper = styled.div`
   background-color: whitesmoke;
   width: 80%;
-  position: relative;
-  top: 90px;
+  position: absolute;
+  top: 150px;
   box-sizing: border-box;
   margin-bottom: 50px;
   z-index: 1050;
