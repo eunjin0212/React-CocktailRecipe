@@ -88,18 +88,18 @@ const Wrapper = styled.div`
   top: 90px;
   box-sizing: border-box;
   margin-bottom: 50px;
+`;
+
+const Container = styled.div`
   @media screen and (max-width: 460px) {
     width: 80%;
     top: 100px;
   }
-  @media screen and (min-width: 830px) {
+  @media screen and (max-width: 830px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-`;
-
-const Container = styled.div`
   color: black;
   display: flex;
   width: 100%;

@@ -32,10 +32,9 @@ const Search = () => {
     }
   };
   useEffect(() => {
-    getDrinks();
     console.log("useEffect");
+    getDrinks();
   }, []);
-
   return (
     <main style={{ width: "100%" }}>
       <SearchForm setSearchTerm={setSearchTerm} />
@@ -43,6 +42,7 @@ const Search = () => {
         {cocktails.drinks &&
           cocktails.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
             <Container
+              key={`${strDrink}`}
               className="cocktail"
               onClick={() => {
                 handleOpen(idDrink);
