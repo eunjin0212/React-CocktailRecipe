@@ -6,7 +6,7 @@ const MyModal = ({ onClose, selectedItem }) => {
   const [data, setData] = useState([]);
   let id = selectedItem;
   let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  useEffect(() => {
+  const fetchUrl = () => {
     axios
       .get(url)
       .then((res) => {
@@ -15,49 +15,53 @@ const MyModal = ({ onClose, selectedItem }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [url]);
+  };
+  useEffect(() => {
+    fetchUrl();
+  }, []);
   return (
     <MyModals onClick={onClose}>
       <Wrapper>
         <button onClick={onClose}>X</button>
-        {data.map((result) => {
-          return (
-            <Container>
-              <Image>
-                <img src={result.strDrinkThumb} alt={result.idDrink} />
-              </Image>
-              <About>
-                <Name>{result.strDrink}</Name>
-                <Alcoholic>
-                  <span>알콜</span>
-                  <div>{result.strAlcoholic}</div>
-                </Alcoholic>
-                <Glass>
-                  <span>잔</span>
-                  <div>{result.strGlass}</div>
-                </Glass>
-                <Category>
-                  <span>카테고리</span>
-                  <div>{result.strCategory}</div>
-                </Category>
-                <Instruction>
-                  <span>방법</span>
-                  <div>{result.strInstructions}</div>
-                </Instruction>
-                <Ingredient>
-                  <span>재료</span>
-                  <div className="ing">
-                    <div>{result.strIngredient1}</div>
-                    <div>{result.strIngredient2}</div>
-                    <div>{result.strIngredient3}</div>
-                    <div>{result.strIngredient4}</div>
-                    <div>{result.strIngredient5}</div>
-                  </div>
-                </Ingredient>
-              </About>
-            </Container>
-          );
-        })}
+        {Array.isArray(data) &&
+          data.map((result) => {
+            return (
+              <Container>
+                <Image>
+                  <img src={result.strDrinkThumb} alt={result.idDrink} />
+                </Image>
+                <About>
+                  <Name>{result.strDrink}</Name>
+                  <Alcoholic>
+                    <span>알콜</span>
+                    <div>{result.strAlcoholic}</div>
+                  </Alcoholic>
+                  <Glass>
+                    <span>잔</span>
+                    <div>{result.strGlass}</div>
+                  </Glass>
+                  <Category>
+                    <span>카테고리</span>
+                    <div>{result.strCategory}</div>
+                  </Category>
+                  <Instruction>
+                    <span>방법</span>
+                    <div>{result.strInstructions}</div>
+                  </Instruction>
+                  <Ingredient>
+                    <span>재료</span>
+                    <div className="ing">
+                      <div>{result.strIngredient1}</div>
+                      <div>{result.strIngredient2}</div>
+                      <div>{result.strIngredient3}</div>
+                      <div>{result.strIngredient4}</div>
+                      <div>{result.strIngredient5}</div>
+                    </div>
+                  </Ingredient>
+                </About>
+              </Container>
+            );
+          })}
       </Wrapper>
     </MyModals>
   );
@@ -70,7 +74,7 @@ const MyModals = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  height: 150%;
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -81,9 +85,18 @@ const Wrapper = styled.div`
   background-color: whitesmoke;
   width: 80%;
   position: relative;
-  top: 100px;
+  top: 90px;
   box-sizing: border-box;
   margin-bottom: 50px;
+  @media screen and (max-width: 460px) {
+    width: 80%;
+    top: 100px;
+  }
+  @media screen and (min-width: 830px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const Container = styled.div`
@@ -94,15 +107,6 @@ const Container = styled.div`
   div {
     display: flex;
     margin-bottom: 20px;
-  }
-  @media screen and (max-width: 460px) {
-    width: 80%;
-    height: 80%;
-  }
-  @media screen and (max-width: 830px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 `;
 const About = styled.div`

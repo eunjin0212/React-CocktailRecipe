@@ -11,20 +11,20 @@ const Main = () => {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
 
+  const fetchUrl = async () => {
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const fetchUrl = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        setData(json);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     console.log("useEffect");
     fetchUrl();
   }, []);
-
+  console.log(data.drinks);
   const handleOpen = (idDrink) => {
     setSelectedItem(idDrink);
     setOpen(true);
@@ -37,7 +37,7 @@ const Main = () => {
 
   return (
     <Wrapper className="main">
-      {data &&
+      {data.drinks &&
         data.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
           <>
             <Container
@@ -72,12 +72,15 @@ const Container = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 300px;
+  background-color: inherit;
+  border-style: none;
   img {
     width: 300px;
     height: 300px;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.5);
+    //box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.5);
   }
   div {
     color: #7f8c8d;
