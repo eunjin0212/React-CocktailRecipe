@@ -6,6 +6,8 @@ React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들�
 
 [레시피 확인하기](https://reactcocktailrecipe.netlify.app/#/)
 
+> - Update 2021. 01. 07
+
 - Api 사용
 - Main 랜덤 칵테일 리스트
 
@@ -14,7 +16,7 @@ React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들�
 
 - git commit message 신경쓰기
 
-## 구현 기능
+## Hooks
 
 > - useMemo : 리턴값을 기억 []배열의 요소가 바뀌기 전까지
 > - useCallback : 함수 자체를 기억해뒀다가 재실행될 때 다시 실행되는 것을 막아줌 []배열의 요소가 바뀌기 전까지 기억
