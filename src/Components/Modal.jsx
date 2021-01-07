@@ -4,9 +4,9 @@ import styled from "styled-components";
 
 const MyModal = ({ onClose, selectedItem }) => {
   const [data, setData] = useState([]);
-  let id = selectedItem;
-  let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const fetchUrl = () => {
+    let id = selectedItem;
+    let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     axios
       .get(url)
       .then((res) => {
@@ -20,7 +20,7 @@ const MyModal = ({ onClose, selectedItem }) => {
     fetchUrl();
   }, []);
   return (
-    <MyModals onClick={onClose}>
+    <MyModals>
       <Wrapper>
         <button onClick={onClose}>X</button>
         {Array.isArray(data) &&
@@ -79,6 +79,7 @@ const MyModals = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1040;
 `;
 
 const Wrapper = styled.div`
@@ -88,6 +89,7 @@ const Wrapper = styled.div`
   top: 90px;
   box-sizing: border-box;
   margin-bottom: 50px;
+  z-index: 1050;
 `;
 
 const Container = styled.div`
@@ -104,6 +106,7 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+  z-index: 100;
   div {
     display: flex;
     margin-bottom: 20px;

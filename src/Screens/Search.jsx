@@ -34,7 +34,7 @@ const Search = () => {
   useEffect(() => {
     console.log("useEffect");
     getDrinks();
-  }, []);
+  }, [searchTerm]);
   return (
     <main style={{ width: "100%" }}>
       <SearchForm setSearchTerm={setSearchTerm} />
