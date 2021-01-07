@@ -74,7 +74,7 @@ const MyModals = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  height: 2348px;
+  height: 3000px;
   width: 100%;
   display: flex;
   align-items: center;
