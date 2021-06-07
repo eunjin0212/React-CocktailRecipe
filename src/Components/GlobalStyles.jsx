@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import bg from "../Assets/bg.jpg";
 
 const globalStyles = createGlobalStyle`
     ${reset};
@@ -12,12 +11,10 @@ const globalStyles = createGlobalStyle`
         box-sizing:border-box;
     }
     body {
-        background-image: url(${bg});
-        background-repeat: repeat(colunm);
-        background-size: cover;
+        background-color: rgb(33,33,33);
         margin: 0px;
         padding: 0px;
-        color: #2e363e;
+        color: whitesmoke;
         box-sizing: border-box;
         width: 100vw;
         height: 100vh;

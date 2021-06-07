@@ -28,11 +28,10 @@ const Search = () => {
       const data = await response.json();
       setCocktails(data);
     } catch (error) {
-      console.log(error);
+      Error("Search Error!");
     }
   };
   useEffect(() => {
-    console.log("useEffect");
     getDrinks();
   }, [searchTerm]);
   return (

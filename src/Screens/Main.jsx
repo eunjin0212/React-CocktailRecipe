@@ -17,22 +17,18 @@ const Main = () => {
       const json = await response.json();
       setData(json);
     } catch (error) {
-      console.log(error);
+      Error("Error!");
     }
   };
   useEffect(() => {
-    console.log("useEffect");
     fetchUrl();
   }, []);
-  console.log(data.drinks);
   const handleOpen = (idDrink) => {
     setSelectedItem(idDrink);
     setOpen(true);
-    console.log("open");
   };
   const handleClose = () => {
     setOpen(false);
-    console.log("close");
   };
 
   return (
@@ -43,7 +39,6 @@ const Main = () => {
             <Container
               onClick={() => {
                 handleOpen(idDrink);
-                console.log(handleOpen(idDrink));
               }}
             >
               <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
@@ -83,7 +78,7 @@ const Container = styled.button`
     //box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.5);
   }
   div {
-    color: #7f8c8d;
+    color: whitesmoke;
     font-size: 30px;
   }
 `;
