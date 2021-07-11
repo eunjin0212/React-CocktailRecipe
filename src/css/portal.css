@@ -1,0 +1,16 @@
+#modal {
+  height: 99.99%;
+  width: 99.99%;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  display: none;
+}
+/*# sourceMappingURL=portal.css.map */
