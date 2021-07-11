@@ -4,55 +4,78 @@ import { useState, useEffect } from "react";
 import Search from "./Search";
 import Modal from "../Components/Modal";
 import Portal from "../Components/Portal";
+import "../css/portal.css";
 
 const Main = () => {
-  const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-  const [data, setData] = useState([]);
+  const [datas, setDatas] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
+  let result = 0;
 
-  const fetchUrl = async () => {
-    try {
-      const response = await fetch(url);
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      Error("Error!");
-    }
-  };
   useEffect(() => {
+    const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+
+    const fetchUrl = async () => {
+      try {
+        const response = await fetch(url);
+        const jsonData = await response.json();
+        setDatas(jsonData);
+      } catch (error) {
+        Error("Main Data Error");
+      }
+    };
     fetchUrl();
   }, []);
+
+  Object.keys(datas).forEach((drinks) => {
+    let date = datas.drinks[0].dateModified;
+    const regex = /[^0-9]/g;
+    result = date.replace(regex, "");
+  });
+  Number(result);
+
+  const modal = document.getElementById("modal");
+
   const handleOpen = (idDrink) => {
     setSelectedItem(idDrink);
     setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
+    modal.style.display = "flex";
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    modal.style.display = "none";
+  };
+  window.addEventListener("scroll", () => {
+    let scrollTops = window.scrollY || document.documentElement.scrollTop;
+    let offsetTop = window.pageYOffset;
+    const child = modal.children;
+    console.log(child);
+    child.style.top = offsetTop + 50 + "px";
+  });
+
   return (
-    <Wrapper className="main">
-      {data.drinks &&
-        data.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
-          <>
+    <>
+      {datas.drinks &&
+        datas.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
+          <Wrapper key={result}>
             <Container
+              key={1}
               onClick={() => {
                 handleOpen(idDrink);
-              }}
-            >
+              }}>
               <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
-              <div key={`${idDrink}`}>{`${strDrink}`}</div>
+              <div>{`${strDrink}`}</div>
             </Container>
             {open && (
-              <Portal>
-                <Modal selectedItem={`${selectedItem}`} onClose={handleClose} />
+              <Portal key={2}>
+                <Modal key={result} selectedItem={`${selectedItem}`} onClose={handleClose} />
               </Portal>
             )}
-          </>
+            <Search />
+          </Wrapper>
         ))}
-      <Search />
-    </Wrapper>
+    </>
   );
 };
 export default Main;
@@ -60,6 +83,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: inherit;
+  width: inherit;
 `;
 
 const Container = styled.button`
@@ -70,6 +95,7 @@ const Container = styled.button`
   width: 300px;
   background-color: inherit;
   border-style: none;
+  cursor: pointer;
   img {
     width: 300px;
     height: 300px;
