@@ -4,7 +4,7 @@ import styled from "styled-components";
 const SearchForm = ({ setSearchTerm }) => {
   useEffect(() => {
     searchValue.current.focus();
-  }, []);
+  }, [setSearchTerm]);
   const searchValue = useRef("");
 
   const handleSubmit = (e) => {
@@ -17,14 +17,7 @@ const SearchForm = ({ setSearchTerm }) => {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Search
-          type="text"
-          name="name"
-          id="name"
-          placeholder="이름이나 재료를 검색하세요."
-          onChange={searchCocktail}
-          ref={searchValue}
-        />
+        <Search type="text" name="name" id="name" placeholder="이름이나 재료를 검색하세요." onChange={searchCocktail} ref={searchValue} />
       </Form>
     </Wrapper>
   );
