@@ -3,8 +3,10 @@ import styled from "styled-components";
 import SearchForm from "../Components/SearchForm";
 import Portal from "../Components/Portal";
 import Modal from "../Components/Modal";
-
+import "../css/portal.css";
 const Search = () => {
+  let result = 0;
+  const modal = document.getElementById("modal");
   const [searchTerm, setSearchTerm] = useState("a");
   const [cocktails, setCocktails] = useState([]);
   const [open, setOpen] = useState(false);
@@ -13,31 +15,37 @@ const Search = () => {
   const handleOpen = (idDrink) => {
     setSelectedItem(idDrink);
     setOpen(true);
-    console.log("open");
+    modal.style.display = "flex";
   };
 
   const handleClose = () => {
     setOpen(false);
-    console.log("close");
-  };
-  const getDrinks = async () => {
-    try {
-      const response = await fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`
-      );
-      const data = await response.json();
-      setCocktails(data);
-    } catch (error) {
-      Error("Search Error!");
-    }
+    modal.style.display = "none";
   };
   useEffect(() => {
+    const getDrinks = async () => {
+      try {
+        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`);
+        const data = await response.json();
+        setCocktails(data);
+      } catch (error) {
+        Error("Search Error!");
+      }
+    };
     getDrinks();
   }, [searchTerm]);
+
+  Object.keys(cocktails).forEach((drinks) => {
+    let date = cocktails.drinks[0].dateModified;
+    const regex = /[^0-9]/g;
+    result = date.replace(regex, "");
+  });
+  Number(result);
+
   return (
-    <main style={{ width: "100%" }}>
+    <SearchMain key={result}>
       <SearchForm setSearchTerm={setSearchTerm} />
-      <Wrapper className="cocktail-list">
+      <Wrapper>
         {cocktails.drinks &&
           cocktails.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
             <Container
@@ -45,8 +53,7 @@ const Search = () => {
               className="cocktail"
               onClick={() => {
                 handleOpen(idDrink);
-              }}
-            >
+              }}>
               <Img>
                 <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
               </Img>
@@ -55,16 +62,19 @@ const Search = () => {
           ))}
       </Wrapper>
       {open && (
-        <Portal>
-          <Modal selectedItem={`${selectedItem}`} onClose={handleClose} />
+        <Portal key={3}>
+          <Modal key={result} selectedItem={`${selectedItem}`} onClose={handleClose} />
         </Portal>
       )}
-    </main>
+    </SearchMain>
   );
 };
 
 export default Search;
-
+const SearchMain = styled.main`
+  width: 100%;
+  height: auto;
+`;
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -88,7 +98,7 @@ const Container = styled.button`
   border-style: none;
   background-color: inherit;
   width: 180px;
-  //box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 `;
 const Img = styled.div`
   background-color: #fff;
