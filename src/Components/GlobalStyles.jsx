@@ -17,7 +17,7 @@ const globalStyles = createGlobalStyle`
         color: whitesmoke;
         box-sizing: border-box;
         width: 100vw;
-        height: 100vh;
+        height: 100%;
         user-select: none;
         -ms-overflow-style: none; 
         &::-webkit-scrollbar { 
