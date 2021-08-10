@@ -14,7 +14,6 @@ const Main = () => {
 
   useEffect(() => {
     const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-
     const fetchUrl = async () => {
       try {
         const response = await fetch(url);
@@ -29,8 +28,8 @@ const Main = () => {
 
   Object.keys(datas).forEach((drinks) => {
     let date = datas.drinks[0].dateModified;
-    const regex = /[^0-9]/g;
-    result = date.replace(regex, "");
+    const regexs = /[^0-9]/g;
+    result = date.replace(regexs, "");
   });
   Number(result);
 
@@ -39,6 +38,7 @@ const Main = () => {
   const handleOpen = (idDrink) => {
     setSelectedItem(idDrink);
     setOpen(true);
+    modal.style.height = "1000vh";
     modal.style.display = "flex";
   };
 
@@ -46,13 +46,6 @@ const Main = () => {
     setOpen(false);
     modal.style.display = "none";
   };
-  window.addEventListener("scroll", () => {
-    let scrollTops = window.scrollY || document.documentElement.scrollTop;
-    let offsetTop = window.pageYOffset;
-    const child = modal.children;
-    console.log(child);
-    child.style.top = offsetTop + 50 + "px";
-  });
 
   return (
     <>

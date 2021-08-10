@@ -3,11 +3,11 @@ import axios from "axios";
 import styled from "styled-components";
 
 const MyModal = ({ onClose, selectedItem }) => {
-  let key = 0;
+  // let key = 0;
   const [modaldata, setModalData] = useState([]);
   useEffect(() => {
     let id = selectedItem;
-    let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${selectedItem}`;
+    let url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     axios
       .get(url)
       .then((res) => {
@@ -18,19 +18,35 @@ const MyModal = ({ onClose, selectedItem }) => {
       });
   }, [onClose, selectedItem]);
 
-  Object.keys(modaldata).forEach(() => {
-    let date = modaldata[0].dateModified;
-    const regex = /[^0-9]/g;
-    key = date.replace(regex, "");
-  });
-  Number(key);
+  useEffect(() => {
+    const modalFront = document.getElementById("modalFront");
+    let screenScroll = window.scrollY || document.documentElement.scrollTop;
+    modalFront.style.top = screenScroll + 50 + "px";
+    document.body.style.cssText = `
+    position: fixed; 
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
+  // Object.keys(modaldata).forEach(() => {
+  //   let date = modaldata[0].dateModified;
+  //   const regexs = /[^0-9]/g;
+  //   key = date.replace(regexs, "");
+  // });
+  // Number(key);
+  console.log(document.getElementById("modalFront"));
   return (
-    <MyModals onClick={onClose} key={selectedItem} id="modalFront">
+    <MyModals onClick={onClose} key={selectedItem} id='modalFront'>
       {Array.isArray(modaldata) &&
         modaldata.map((result) => {
           return (
-            <Container key={key}>
+            <Container>
               <Image>
                 <img src={result.strDrinkThumb} alt={result.idDrink} />
               </Image>
@@ -78,6 +94,7 @@ const MyModals = styled.div`
   position: absolute;
   box-sizing: border-box;
   z-index: 1050;
+  top: 7%;
 `;
 const Container = styled.div`
   @media screen and (max-width: 460px) {
