@@ -26,13 +26,6 @@ const Main = () => {
     fetchUrl();
   }, []);
 
-  Object.keys(datas).forEach((drinks) => {
-    let date = datas.drinks[0].dateModified;
-    const regexs = /[^0-9]/g;
-    result = date.replace(regexs, "");
-  });
-  Number(result);
-
   const modal = document.getElementById("modal");
 
   const handleOpen = (idDrink) => {
@@ -46,6 +39,12 @@ const Main = () => {
     setOpen(false);
     modal.style.display = "none";
   };
+  Object.keys(datas).forEach((drinks) => {
+    let date = datas.drinks[0].dateModified;
+    const regexs = /[^0-9]/g;
+    result = date.replace(regexs, "");
+  });
+  Number(result);
 
   return (
     <>

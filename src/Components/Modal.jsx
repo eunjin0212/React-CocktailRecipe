@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 const MyModal = ({ onClose, selectedItem }) => {
-  // let key = 0;
+  let key = 0;
   const [modaldata, setModalData] = useState([]);
   useEffect(() => {
     let id = selectedItem;
@@ -34,19 +34,19 @@ const MyModal = ({ onClose, selectedItem }) => {
     };
   }, []);
 
-  // Object.keys(modaldata).forEach(() => {
-  //   let date = modaldata[0].dateModified;
-  //   const regexs = /[^0-9]/g;
-  //   key = date.replace(regexs, "");
-  // });
-  // Number(key);
-  console.log(document.getElementById("modalFront"));
+  Object.keys(modaldata).forEach(() => {
+    let date = modaldata[0].dateModified;
+    const regexs = /[^0-9]/g;
+    key = date.replace(regexs, "");
+  });
+  Number(key);
+  // console.log(document.body.getBoundingClientRect());
   return (
     <MyModals onClick={onClose} key={selectedItem} id='modalFront'>
       {Array.isArray(modaldata) &&
         modaldata.map((result) => {
           return (
-            <Container>
+            <Container key={key}>
               <Image>
                 <img src={result.strDrinkThumb} alt={result.idDrink} />
               </Image>
