@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import Search from "./Search";
-import Modal from "../Components/Modal";
-import Portal from "../Components/Portal";
-import "../css/portal.css";
+import Modal from "../components/Modal";
+import Portal from "../components/Portal";
+import Header from "../components/Header";
+import ICocktailData from "../types/cocktailData.type";
+import "../css/portal.scss";
 
 const Main = () => {
-  const [datas, setDatas] = useState([]);
+  const [cocktailList, setCocktailList] = useState<ICocktailData>({drinks: []});
   const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
-  let result = 0;
+  const [selectedItem, setSelectedItem] = useState<string>('');
 
   useEffect(() => {
     const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
@@ -18,7 +18,7 @@ const Main = () => {
       try {
         const response = await fetch(url);
         const jsonData = await response.json();
-        setDatas(jsonData);
+        setCocktailList(jsonData);
       } catch (error) {
         Error("Main Data Error");
       }
@@ -28,31 +28,26 @@ const Main = () => {
 
   const modal = document.getElementById("modal");
 
-  const handleOpen = (idDrink) => {
+  const handleOpen = (idDrink:string) => {
     setSelectedItem(idDrink);
     setOpen(true);
-    modal.style.height = "1000vh";
-    modal.style.display = "flex";
+    modal!.style.height = "1000vh";
+    modal!.style.display = "flex";
   };
 
   const handleClose = () => {
     setOpen(false);
-    modal.style.display = "none";
+    modal!.style.display = "none";
   };
-  Object.keys(datas).forEach((drinks) => {
-    let date = datas.drinks[0].dateModified;
-    const regexs = /[^0-9]/g;
-    result = date.replace(regexs, "");
-  });
-  Number(result);
 
   return (
-    <>
-      {datas.drinks &&
-        datas.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
-          <Wrapper key={result}>
+    <Fragment>
+      <Header />
+      { 
+        cocktailList.drinks.map(({ idDrink, strDrink, strDrinkThumb }, idx) => (
+          <Wrapper key={idx}>
             <Container
-              key={1}
+              key={idDrink}
               onClick={() => {
                 handleOpen(idDrink);
               }}>
@@ -60,17 +55,19 @@ const Main = () => {
               <div>{`${strDrink}`}</div>
             </Container>
             {open && (
-              <Portal key={2}>
-                <Modal key={result} selectedItem={`${selectedItem}`} onClose={handleClose} />
+              <Portal key={selectedItem}>
+                <Modal key={idx} selectedItem={selectedItem!} onClose={handleClose} />
               </Portal>
             )}
             <Search />
           </Wrapper>
-        ))}
-    </>
+        ))
+      }
+    </Fragment>
   );
 };
 export default Main;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -93,7 +90,6 @@ const Container = styled.button`
     height: 300px;
     margin-bottom: 20px;
     border-radius: 10px;
-    //box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.5);
   }
   div {
     color: whitesmoke;

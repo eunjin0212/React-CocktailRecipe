@@ -1,29 +1,30 @@
-import React, { useEffect, useRef } from "react";
+import React, { FormEvent, useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 
-const SearchForm = ({ setSearchTerm }) => {
-  useEffect(() => {
-    searchValue.current.focus();
-  }, [setSearchTerm]);
-  const searchValue = useRef("");
+const SearchForm = ({ setSearchTerm }: { setSearchTerm: (arg: string) => void }) => {
+  const inputEl = useRef<HTMLInputElement>(null);
+  useLayoutEffect(() => {
+    if (inputEl.current !== null) inputEl.current.focus();
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:FormEvent) => {
     e.preventDefault();
   };
 
   const searchCocktail = () => {
-    setSearchTerm(searchValue.current.value);
+    if (inputEl.current !== null) setSearchTerm(inputEl.current.value);
   };
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Search type="text" name="name" id="name" placeholder="이름이나 재료를 검색하세요." onChange={searchCocktail} ref={searchValue} />
+        <Search type="text" name="name" id="name" placeholder="이름이나 재료를 검색하세요." onChange={searchCocktail} ref={inputEl} />
       </Form>
     </Wrapper>
   );
 };
 
 export default SearchForm;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;

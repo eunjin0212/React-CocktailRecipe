@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import SearchForm from "../Components/SearchForm";
-import Portal from "../Components/Portal";
-import Modal from "../Components/Modal";
-import "../css/portal.css";
+import SearchForm from "../components/SearchForm";
+import Portal from "../components/Portal";
+import Modal from "../components/Modal";
+import "../css/portal.scss";
+import ICocktailData from '../types/cocktailData.type';
+
 const Search = () => {
-  let result = 0;
   const modal = document.getElementById("modal");
   const [searchTerm, setSearchTerm] = useState("a");
-  const [cocktails, setCocktails] = useState([]);
+  const [cocktails, setCocktails] = useState<ICocktailData>({drinks: []});
   const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState<string>('');
 
-  const handleOpen = (idDrink) => {
+  const handleOpen = (idDrink:string) => {
     setSelectedItem(idDrink);
     setOpen(true);
-    modal.style.display = "flex";
+    modal!.style.display = "flex";
   };
 
   const handleClose = () => {
     setOpen(false);
-    modal.style.display = "none";
+    modal!.style.display = "none";
   };
+
   useEffect(() => {
     const getDrinks = async () => {
       try {
@@ -35,35 +37,29 @@ const Search = () => {
     getDrinks();
   }, [searchTerm]);
 
-  Object.keys(cocktails).forEach((drinks) => {
-    let date = cocktails.drinks[0].dateModified;
-    const regex = /[^0-9]/g;
-    result = date.replace(regex, "");
-  });
-  Number(result);
-
   return (
-    <SearchMain key={result}>
+    <SearchMain>
       <SearchForm setSearchTerm={setSearchTerm} />
       <Wrapper>
-        {cocktails.drinks &&
+        { 
           cocktails.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
             <Container
-              key={`${strDrink}`}
+              key={idDrink}
               className="cocktail"
               onClick={() => {
                 handleOpen(idDrink);
               }}>
               <Img>
-                <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
+                <img src={strDrinkThumb} alt={strDrink} />
               </Img>
-              <Name key={`${idDrink}`}>{`${strDrink}`}</Name>
+              <Name key={idDrink}>{strDrink}</Name>
             </Container>
-          ))}
+          ))
+        }
       </Wrapper>
       {open && (
-        <Portal key={3}>
-          <Modal key={result} selectedItem={`${selectedItem}`} onClose={handleClose} />
+        <Portal>
+          <Modal selectedItem={selectedItem} onClose={handleClose} />
         </Portal>
       )}
     </SearchMain>
@@ -71,6 +67,7 @@ const Search = () => {
 };
 
 export default Search;
+
 const SearchMain = styled.main`
   width: 100%;
   height: auto;
