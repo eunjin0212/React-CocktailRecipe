@@ -1,98 +1,76 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Search from "./Search";
+import DataList from "./DataList";
 import Modal from "../components/Modal";
 import Portal from "../components/Portal";
 import Header from "../components/Header";
-import ICocktailData from "../types/cocktailData.type";
+import CocktailCard from '../components/CocktailCard';
+import type { ICocktailData } from "../types/cocktailData.type";
 import "../css/portal.scss";
+import axios from 'axios';
 
 const Main = () => {
-  const [cocktailList, setCocktailList] = useState<ICocktailData>({drinks: []});
+  const [cocktailList, setCocktailList] = useState<ICocktailData[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
 
+  const getRandomDrinks = async () => {
+    try {
+      const response = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/random.php");
+      setCocktailList(response.data.drinks);
+    } catch (error) {
+      Error("Random Data Error");
+    }
+  }
+
   useEffect(() => {
-    const url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-    const fetchUrl = async () => {
-      try {
-        const response = await fetch(url);
-        const jsonData = await response.json();
-        setCocktailList(jsonData);
-      } catch (error) {
-        Error("Main Data Error");
-      }
-    };
-    fetchUrl();
+    getRandomDrinks()
   }, []);
 
   const modal = document.getElementById("modal");
-
-  const handleOpen = (idDrink:string) => {
+  const randomDataModalOpen = (idDrink: string) => {
     setSelectedItem(idDrink);
+    modal!.className = "open";
     setOpen(true);
-    modal!.style.height = "1000vh";
-    modal!.style.display = "flex";
   };
 
   const handleClose = () => {
     setOpen(false);
-    modal!.style.display = "none";
+    modal!.className = "close";
   };
 
   return (
-    <Fragment>
+    <MainWrapper>
       <Header />
-      { 
-        cocktailList.drinks.map(({ idDrink, strDrink, strDrinkThumb }, idx) => (
-          <Wrapper key={idx}>
-            <Container
-              key={idDrink}
-              onClick={() => {
-                handleOpen(idDrink);
-              }}>
-              <img src={`${strDrinkThumb}`} alt={`${strDrink}`} />
-              <div>{`${strDrink}`}</div>
-            </Container>
-            {open && (
-              <Portal key={selectedItem}>
-                <Modal key={idx} selectedItem={selectedItem!} onClose={handleClose} />
-              </Portal>
-            )}
-            <Search />
-          </Wrapper>
+      {
+        cocktailList.map(({ idDrink, strDrink, strDrinkThumb }, idx) => (
+          <CocktailCard
+            key={idx}
+            onOpen={randomDataModalOpen}
+            idDrink={idDrink}
+            strDrink={strDrink}
+            strDrinkThumb={strDrinkThumb}
+          />
         ))
       }
-    </Fragment>
+      {open && (
+        <Portal key={selectedItem}>
+          <Modal
+            selectedItem={selectedItem!}
+            onClose={handleClose}
+          />
+        </Portal>
+      )}
+      <DataList />
+    </MainWrapper>
   );
 };
 export default Main;
 
-const Wrapper = styled.div`
+const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: inherit;
   width: inherit;
-`;
-
-const Container = styled.button`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  background-color: inherit;
-  border-style: none;
-  cursor: pointer;
-  img {
-    width: 300px;
-    height: 300px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-  }
-  div {
-    color: whitesmoke;
-    font-size: 30px;
-  }
-`;
+`

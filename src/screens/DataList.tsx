@@ -3,37 +3,40 @@ import styled from "styled-components";
 import SearchForm from "../components/SearchForm";
 import Portal from "../components/Portal";
 import Modal from "../components/Modal";
+import type { ICocktailData } from '../types/cocktailData.type';
 import "../css/portal.scss";
-import ICocktailData from '../types/cocktailData.type';
+import axios from 'axios';
 
-const Search = () => {
+const DataList = () => {
   const modal = document.getElementById("modal");
   const [searchTerm, setSearchTerm] = useState("a");
-  const [cocktails, setCocktails] = useState<ICocktailData>({drinks: []});
+  const [cocktails, setCocktails] = useState<ICocktailData[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
+  const [top, setTop] = useState<number>(0);
 
   const handleOpen = (idDrink:string) => {
+    const screenScroll = window.scrollY || document.documentElement.scrollTop;
     setSelectedItem(idDrink);
+    setTop(screenScroll);
+    modal!.className = "open";
     setOpen(true);
-    modal!.style.display = "flex";
   };
 
   const handleClose = () => {
     setOpen(false);
-    modal!.style.display = "none";
+    modal!.className = "close";
   };
 
+  const getDrinks = async () => {
+    try {
+      const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`);
+      setCocktails(response.data.drinks);
+    } catch (error) {
+      Error("Search Error!");
+    }
+  };
   useEffect(() => {
-    const getDrinks = async () => {
-      try {
-        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`);
-        const data = await response.json();
-        setCocktails(data);
-      } catch (error) {
-        Error("Search Error!");
-      }
-    };
     getDrinks();
   }, [searchTerm]);
 
@@ -42,7 +45,7 @@ const Search = () => {
       <SearchForm setSearchTerm={setSearchTerm} />
       <Wrapper>
         { 
-          cocktails.drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
+          cocktails.map(({ idDrink, strDrink, strDrinkThumb }) => (
             <Container
               key={idDrink}
               className="cocktail"
@@ -59,14 +62,17 @@ const Search = () => {
       </Wrapper>
       {open && (
         <Portal>
-          <Modal selectedItem={selectedItem} onClose={handleClose} />
+          <Modal
+            selectedItem={selectedItem}
+            onClose={handleClose}
+          />
         </Portal>
       )}
     </SearchMain>
   );
 };
 
-export default Search;
+export default DataList;
 
 const SearchMain = styled.main`
   width: 100%;
