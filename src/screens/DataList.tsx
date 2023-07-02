@@ -13,12 +13,9 @@ const DataList = () => {
   const [cocktails, setCocktails] = useState<ICocktailData[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
-  const [top, setTop] = useState<number>(0);
 
   const handleOpen = (idDrink:string) => {
-    const screenScroll = window.scrollY || document.documentElement.scrollTop;
     setSelectedItem(idDrink);
-    setTop(screenScroll);
     modal!.className = "open";
     setOpen(true);
   };
