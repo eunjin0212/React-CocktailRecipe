@@ -4,7 +4,7 @@ React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들�
 
 [레시피 API](https://www.thecocktaildb.com/api.php)
 
-[레시피 확인하기](https://reactcocktailrecipe.netlify.app/#/)
+[레시피 확인하기](https://eunjin0212.github.io/React-CocktailRecipe/)
 
 > - Update 2021. 01. 07
 > - Update 2021. 08. 13

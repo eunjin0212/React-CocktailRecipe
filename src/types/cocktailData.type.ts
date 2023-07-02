@@ -52,6 +52,6 @@ const cocktailsKey = [
   'dateModified',
 ] as const;
 
-export default interface ICocktailData {
-  drinks: { [x in typeof cocktailsKey[number]]: string }[]
-}
+export type ICocktailData = {
+  [x in typeof cocktailsKey[number]]: string;
+};
