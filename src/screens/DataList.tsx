@@ -6,23 +6,28 @@ import Modal from "../components/Modal";
 import type { ICocktailData } from '../types/cocktailData.type';
 import "../css/portal.scss";
 import axios from 'axios';
+import { allowScroll, preventScroll } from '../utils/modal';
 
 const DataList = () => {
-  const modal = document.getElementById("modal");
   const [searchTerm, setSearchTerm] = useState("a");
   const [cocktails, setCocktails] = useState<ICocktailData[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
-
+  const [top, setTop] = useState(0)
+  const modal = document.getElementById("modal");
+  
   const handleOpen = (idDrink:string) => {
     setSelectedItem(idDrink);
-    modal!.className = "open";
+    setTop(window.scrollY)
     setOpen(true);
+    modal!.classList.add('open');
+    preventScroll();
   };
-
+  
   const handleClose = () => {
     setOpen(false);
-    modal!.className = "close";
+    allowScroll(top);
+    modal!.classList.remove('open');
   };
 
   const getDrinks = async () => {

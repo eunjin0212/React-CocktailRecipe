@@ -10,46 +10,23 @@ interface IModalProps {
 
 const Modal = ({ onClose, selectedItem }: IModalProps) => {
   const [modaldata, setModalData] = useState<ICocktailData>()
-  const [top, setTop] = useState(0)
 
   const getSelectedItem = async () => {
     try {
       const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${selectedItem}`
       const response = await axios.get(url)
       setModalData(response.data.drinks[0])
-
     } catch (error) {
       Error('Modal Data Error')
     }
   }
 
-  const preventScroll = () => {
-    const currentScrollY = window.scrollY || document.documentElement.scrollTop;
-    setTop(currentScrollY)
-    console.log(window.scrollY, document.documentElement.scrollTop)
-    window.scrollTo(0, currentScrollY);
-    return currentScrollY;
-  };
-
-  const allowScroll = (prevScrollY: number) => {
-    setTop(0)
-    document.body.style.position = '';
-    document.body.style.width = '';
-    document.body.style.top = '';
-    document.body.style.overflowY = '';
-    window.scrollTo(0, prevScrollY);
-  };
-
   useEffect(() => {
     getSelectedItem();
-    const prevScrollY = preventScroll();
-    return () => {
-      allowScroll(prevScrollY);
-    };
   }, [selectedItem])
 
   return (
-    <MyModalComponent onClick={onClose} key={selectedItem} style={{ top }}>
+    <MyModalComponent onClick={onClose} key={selectedItem}>
       {
         modaldata && (
           <Container>
@@ -98,6 +75,12 @@ const MyModalComponent = styled.div`
   border-radius: 8px;
   width: 80%;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   z-index: 1050;
   overflow-y: scroll;

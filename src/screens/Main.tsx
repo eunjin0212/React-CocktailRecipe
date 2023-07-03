@@ -30,13 +30,13 @@ const Main = () => {
   const modal = document.getElementById("modal");
   const randomDataModalOpen = (idDrink: string) => {
     setSelectedItem(idDrink);
-    modal!.className = "open";
+    modal!.classList.add('open');
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const randomDataModalClose = () => {
     setOpen(false);
-    modal!.className = "close";
+    modal!.classList.remove('open');
   };
 
   return (
@@ -57,7 +57,7 @@ const Main = () => {
         <Portal key={selectedItem}>
           <Modal
             selectedItem={selectedItem!}
-            onClose={handleClose}
+            onClose={randomDataModalClose}
           />
         </Portal>
       )}
