@@ -7,6 +7,34 @@ import type { ICocktailData } from '../types/cocktailData.type';
 import "../css/portal.scss";
 import axios from 'axios';
 import { allowScroll, preventScroll } from '../utils/modal';
+import CocktailCard from '../components/CocktailCard';
+
+const cardStyle = {
+  margin: '10px 0px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderStyle: 'none',
+  backgroundColor: 'inherit',
+  width: '180px',
+  cursor: 'pointer',
+  '.card-img': {
+    width: '180px',
+    height: '180px',
+    opacity: 0.7,
+    borderRadius: '10px',
+    '&:hover': {
+      opacity: 1,
+    },
+  },
+  '.card-name': {
+    color: 'white',
+    margin: '10px 0px',
+    fontSize: '20px',
+    textAlign: 'center',
+  },
+};
 
 const DataList = () => {
   const [searchTerm, setSearchTerm] = useState("a");
@@ -48,17 +76,14 @@ const DataList = () => {
       <Wrapper>
         { 
           cocktails.map(({ idDrink, strDrink, strDrinkThumb }) => (
-            <Container
+            <CocktailCard
               key={idDrink}
-              className="cocktail"
-              onClick={() => {
-                handleOpen(idDrink);
-              }}>
-              <Img>
-                <img src={strDrinkThumb} alt={strDrink} />
-              </Img>
-              <Name key={idDrink}>{strDrink}</Name>
-            </Container>
+              onOpen={() => handleOpen(idDrink)}
+              idDrink={idDrink}
+              strDrink={strDrink}
+              strDrinkThumb={strDrinkThumb}
+              style={cardStyle}
+            />
           ))
         }
       </Wrapper>
@@ -93,36 +118,4 @@ const Wrapper = styled.div`
   @media only screen and (max-width: 829px) {
     grid-template-columns: repeat(auto-fill, minmax(40%, auto));
   }
-`;
-const Container = styled.button`
-  margin: 10px 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-style: none;
-  background-color: inherit;
-  width: 180px;
-  cursor: pointer;
-`;
-const Img = styled.div`
-  background-color: #fff;
-  height: 180px;
-  border-radius: 10px;
-  img {
-    width: 180px;
-    height: 180px;
-    opacity: 0.7;
-    border-radius: 10px;
-  }
-  img:hover {
-    opacity: 1;
-  }
-`;
-const Name = styled.div`
-  color: white;
-  font-size: 13px;
-  margin: 10px 0px;
-  font-size: 20px;
-  text-align: center;
 `;
