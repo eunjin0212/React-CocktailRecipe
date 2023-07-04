@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/React-CocktailRecipe/static/css/main.f81550ed.css",
-    "main.js": "/React-CocktailRecipe/static/js/main.c1cd81aa.js",
-    "static/js/787.14dc259f.chunk.js": "/React-CocktailRecipe/static/js/787.14dc259f.chunk.js",
+    "main.css": "/React-CocktailRecipe/static/css/main.04783fbd.css",
+    "main.js": "/React-CocktailRecipe/static/js/main.5c66f86f.js",
+    "static/js/787.0e0d59b9.chunk.js": "/React-CocktailRecipe/static/js/787.0e0d59b9.chunk.js",
     "index.html": "/React-CocktailRecipe/index.html",
-    "main.f81550ed.css.map": "/React-CocktailRecipe/static/css/main.f81550ed.css.map",
-    "main.c1cd81aa.js.map": "/React-CocktailRecipe/static/js/main.c1cd81aa.js.map",
-    "787.14dc259f.chunk.js.map": "/React-CocktailRecipe/static/js/787.14dc259f.chunk.js.map"
+    "main.04783fbd.css.map": "/React-CocktailRecipe/static/css/main.04783fbd.css.map",
+    "main.5c66f86f.js.map": "/React-CocktailRecipe/static/js/main.5c66f86f.js.map",
+    "787.0e0d59b9.chunk.js.map": "/React-CocktailRecipe/static/js/787.0e0d59b9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f81550ed.css",
-    "static/js/main.c1cd81aa.js"
+    "static/css/main.04783fbd.css",
+    "static/js/main.5c66f86f.js"
   ]
 }
