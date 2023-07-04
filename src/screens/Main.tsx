@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import DataList from "./DataList";
 import Modal from "../components/Modal";
 import Portal from "../components/Portal";
 import Header from "../components/Header";
 import CocktailCard from '../components/CocktailCard';
-import type { ICocktailData } from "../types/cocktailData.type";
-import "../css/portal.scss";
 import axios from 'axios';
+import type { ICocktailData } from "../types/cocktailData.type";
+
+const cardStyle = css`
+  width: 300px;
+`;
 
 const Main = () => {
   const [cocktailList, setCocktailList] = useState<ICocktailData[]>([]);
@@ -50,6 +53,7 @@ const Main = () => {
             idDrink={idDrink}
             strDrink={strDrink}
             strDrinkThumb={strDrinkThumb}
+            style={cardStyle}
           />
         ))
       }
@@ -67,7 +71,7 @@ const Main = () => {
 };
 export default Main;
 
-const MainWrapper = styled.div`
+const MainWrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;

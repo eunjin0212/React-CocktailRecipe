@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import SearchForm from "../components/SearchForm";
 import Portal from "../components/Portal";
 import Modal from "../components/Modal";
@@ -9,32 +9,30 @@ import axios from 'axios';
 import { allowScroll, preventScroll } from '../utils/modal';
 import CocktailCard from '../components/CocktailCard';
 
-const cardStyle = {
-  margin: '10px 0px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderStyle: 'none',
-  backgroundColor: 'inherit',
-  width: '180px',
-  cursor: 'pointer',
-  '.card-img': {
-    width: '180px',
-    height: '180px',
-    opacity: 0.7,
-    borderRadius: '10px',
-    '&:hover': {
-      opacity: 1,
-    },
-  },
-  '.card-name': {
-    color: 'white',
-    margin: '10px 0px',
-    fontSize: '20px',
-    textAlign: 'center',
-  },
-};
+const cardStyle = css`
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-style: none;
+  background-color: inherit;
+  width: 180px;
+  .card-img {
+    height: 180px;
+    opacity: 0.7;
+    border-radius: 10px;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .card-name {
+    color: white;
+    margin: 10px 0px;
+    font-size: 20px;
+    text-align: center;
+  }
+`;
 
 const DataList = () => {
   const [searchTerm, setSearchTerm] = useState("a");
@@ -101,7 +99,7 @@ const DataList = () => {
 
 export default DataList;
 
-const SearchMain = styled.main`
+const SearchMain = styled.section`
   width: 100%;
   height: auto;
 `;
