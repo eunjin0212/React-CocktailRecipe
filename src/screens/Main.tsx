@@ -6,17 +6,23 @@ import Portal from "../components/Portal";
 import Header from "../components/Header";
 import CocktailCard from '../components/CocktailCard';
 import axios from 'axios';
+import { imgCache } from '../utils/imgCache'
 import type { ICocktailData } from "../types/cocktailData.type";
 
+const InitCocktail = {
+  idDrink: '',
+  strDrink: '',
+  strDrinkThumb: '',
+}
 const Main = () => {
-  const [cocktailList, setCocktailList] = useState<ICocktailData[]>([]);
+  const [cocktailList, setCocktailList] = useState<Pick<ICocktailData, 'idDrink' | 'strDrink' | 'strDrinkThumb'>>(InitCocktail);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
 
   const getRandomDrinks = async () => {
     try {
       const response = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/random.php");
-      setCocktailList(response.data.drinks);
+      setCocktailList(imgCache(response.data.drinks)[0]);
     } catch (error) {
       Error("Random Data Error");
     }
@@ -41,19 +47,14 @@ const Main = () => {
   return (
     <MainWrapper>
       <Header />
-      {
-        cocktailList.map(({ idDrink, strDrink, strDrinkThumb }, idx) => (
-          <CocktailCard
-            key={idx}
-            onOpen={randomDataModalOpen}
-            idDrink={idDrink}
-            strDrink={strDrink}
-            strDrinkThumb={strDrinkThumb}
-            imgHeight={300}
-            imgWidth={300}
-          />
-        ))
-      }
+        <CocktailCard
+          onOpen={randomDataModalOpen}
+          idDrink={cocktailList.idDrink}
+          strDrink={cocktailList.strDrink}
+          strDrinkThumb={cocktailList.strDrinkThumb}
+          imgHeight={300}
+          imgWidth={300}
+        />
       {open && (
         <Portal key={selectedItem}>
           <Modal

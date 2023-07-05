@@ -13,7 +13,7 @@ interface ICardProps extends Pick<ICocktailData, 'strDrinkThumb' | 'idDrink' | '
 const CocktailCard = ({ onOpen, strDrinkThumb, strDrink, idDrink, style, imgHeight, imgWidth }: ICardProps) => {
   return (
     <>
-      <Container onClick={() => onOpen(idDrink)} customStyle={style}>
+      <Container onClick={() => onOpen(idDrink)} $customStyle={style}>
         <img 
           className='card-img' 
           src={strDrinkThumb}
@@ -29,7 +29,7 @@ const CocktailCard = ({ onOpen, strDrinkThumb, strDrink, idDrink, style, imgHeig
 };
 export default CocktailCard;
 
-const Container = styled.button<{ customStyle?: CSSProp; }>`
+const Container = styled.button<{ $customStyle?: CSSProp; }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,5 +48,5 @@ const Container = styled.button<{ customStyle?: CSSProp; }>`
     color: whitesmoke;
     font-size: 30px;
   }
-  ${({ customStyle }) => (customStyle && customStyle)}; 
+  ${({ $customStyle }) => ($customStyle && $customStyle)}; 
 `;
