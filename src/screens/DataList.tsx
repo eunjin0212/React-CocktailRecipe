@@ -8,6 +8,7 @@ import "../css/portal.scss";
 import axios from 'axios';
 import { allowScroll, preventScroll } from '../utils/modal';
 import CocktailCard from '../components/CocktailCard';
+import { imgCache } from '../utils/imgCache';
 
 const cardStyle = css`
   margin: 10px 0px;
@@ -58,7 +59,7 @@ const DataList = () => {
   const getDrinks = async () => {
     try {
       const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchTerm}`);
-      setCocktails(response.data.drinks);
+      setCocktails(imgCache(response.data.drinks));
     } catch (error) {
       Error("Search Error!");
     }
