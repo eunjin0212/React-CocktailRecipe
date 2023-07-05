@@ -17,7 +17,6 @@ const cardStyle = css`
   align-items: center;
   border-style: none;
   background-color: inherit;
-  width: 180px;
   .card-img {
     height: 180px;
     opacity: 0.7;
@@ -81,6 +80,8 @@ const DataList = () => {
               strDrink={strDrink}
               strDrinkThumb={strDrinkThumb}
               style={cardStyle}
+              imgWidth={180}
+              imgHeight={180}
             />
           ))
         }

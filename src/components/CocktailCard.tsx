@@ -6,13 +6,22 @@ interface ICardProps extends Pick<ICocktailData, 'strDrinkThumb' | 'idDrink' | '
   onOpen: (arg: string) => void,
   strDrinkThumb: string;
   style?: CSSProp;
+  imgWidth: number;
+  imgHeight: number;
 }
 
-const CocktailCard = ({ onOpen, strDrinkThumb, strDrink, idDrink, style }: ICardProps) => {
+const CocktailCard = ({ onOpen, strDrinkThumb, strDrink, idDrink, style, imgHeight, imgWidth }: ICardProps) => {
   return (
     <>
       <Container onClick={() => onOpen(idDrink)} customStyle={style}>
-        <img className='card-img' src={strDrinkThumb} alt={strDrink} />
+        <img 
+          className='card-img' 
+          src={strDrinkThumb}
+          alt={strDrink}
+          loading='lazy'
+          width={imgWidth}
+          height={imgHeight}
+        />
         <div className='card-name'>{strDrink}</div>
       </Container>
     </>
