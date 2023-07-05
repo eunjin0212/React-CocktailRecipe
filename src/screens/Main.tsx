@@ -15,14 +15,14 @@ const InitCocktail = {
   strDrinkThumb: '',
 }
 const Main = () => {
-  const [cocktailList, setCocktailList] = useState<Pick<ICocktailData, 'idDrink' | 'strDrink' | 'strDrinkThumb'>>(InitCocktail);
+  const [randomCocktail, setRandomCocktail] = useState<Pick<ICocktailData, 'idDrink' | 'strDrink' | 'strDrinkThumb'>>(InitCocktail);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
 
   const getRandomDrinks = async () => {
     try {
       const response = await axios.get("https://www.thecocktaildb.com/api/json/v1/1/random.php");
-      setCocktailList(imgCache(response.data.drinks)[0]);
+      setRandomCocktail(imgCache(response.data.drinks)[0]);
     } catch (error) {
       Error("Random Data Error");
     }
@@ -49,9 +49,9 @@ const Main = () => {
       <Header />
         <CocktailCard
           onOpen={randomDataModalOpen}
-          idDrink={cocktailList.idDrink}
-          strDrink={cocktailList.strDrink}
-          strDrinkThumb={cocktailList.strDrinkThumb}
+          idDrink={randomCocktail.idDrink}
+          strDrink={randomCocktail.strDrink}
+          strDrinkThumb={randomCocktail.strDrinkThumb}
           imgHeight={300}
           imgWidth={300}
         />
