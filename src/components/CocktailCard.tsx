@@ -38,8 +38,6 @@ const Container = styled.button<{ $customStyle?: CSSProp; }>`
   border-style: none;
   cursor: pointer;
   .card-img {
-    width: 100%;
-    height: 100%;
     margin-bottom: 20px;
     border-radius: 10px;
     background-color: #fff;
