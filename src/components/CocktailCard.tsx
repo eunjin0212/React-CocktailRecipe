@@ -18,7 +18,6 @@ const CocktailCard = ({ onOpen, strDrinkThumb, strDrink, idDrink, style, imgHeig
           className='card-img' 
           src={strDrinkThumb}
           alt={strDrink}
-          loading='lazy'
           width={imgWidth}
           height={imgHeight}
         />
