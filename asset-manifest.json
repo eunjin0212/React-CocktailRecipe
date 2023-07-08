@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/React-CocktailRecipe/static/css/main.e360aebc.css",
-    "main.js": "/React-CocktailRecipe/static/js/main.7e7e7c9d.js",
+    "main.css": "/React-CocktailRecipe/static/css/main.35d1cc7c.css",
+    "main.js": "/React-CocktailRecipe/static/js/main.fde5504b.js",
     "static/js/787.0e0d59b9.chunk.js": "/React-CocktailRecipe/static/js/787.0e0d59b9.chunk.js",
+    "static/media/Yellowtail.woff2": "/React-CocktailRecipe/static/media/Yellowtail.1c75ff6a448abb142fa8.woff2",
     "index.html": "/React-CocktailRecipe/index.html",
-    "main.e360aebc.css.map": "/React-CocktailRecipe/static/css/main.e360aebc.css.map",
-    "main.7e7e7c9d.js.map": "/React-CocktailRecipe/static/js/main.7e7e7c9d.js.map",
+    "main.35d1cc7c.css.map": "/React-CocktailRecipe/static/css/main.35d1cc7c.css.map",
+    "main.fde5504b.js.map": "/React-CocktailRecipe/static/js/main.fde5504b.js.map",
     "787.0e0d59b9.chunk.js.map": "/React-CocktailRecipe/static/js/787.0e0d59b9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e360aebc.css",
-    "static/js/main.7e7e7c9d.js"
+    "static/css/main.35d1cc7c.css",
+    "static/js/main.fde5504b.js"
   ]
 }
