@@ -35,7 +35,7 @@ const cardStyle = css`
 `;
 
 const DataList = () => {
-  const [searchTerm, setSearchTerm] = useState("a");
+  const [searchTerm, setSearchTerm] = useState("");
   const [cocktails, setCocktails] = useState<ICocktailData[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string>('');
