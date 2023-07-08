@@ -26,7 +26,7 @@ const globalStyles = createGlobalStyle`
   }
   @font-face {
     font-family: 'Yellowtail';
-    src: url('./Yellowtail.woff2') format('woff2');
+    src: url('../fonts/Yellowtail.woff2') format('woff2');
     font-style: normal;
     font-weight: 400;
     font-display: swap;
