@@ -11,6 +11,5 @@ const HeaderDiv = styled.div`
   margin: 50px 0px 80px 0px;
   text-shadow: #76ff03 1px 1px 20px;
   width: 100%;
-  font-family: "Yellowtail", cursive;
-  font-weight: 900;
+  font-family: 'Yellowtail', cursive;
 `

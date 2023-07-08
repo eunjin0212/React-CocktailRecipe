@@ -24,13 +24,6 @@ const globalStyles = createGlobalStyle`
         display: none !important; 
     }
   }
-  @font-face {
-    font-family: 'Yellowtail';
-    src: url('../fonts/Yellowtail.woff2') format('woff2');
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-  }
 `;
 
 export default globalStyles;
