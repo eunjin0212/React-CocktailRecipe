@@ -37,6 +37,7 @@ React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들�
 - [x] 여러번 랜더링 고치기 (strict 모드 끄기)
 - [ ] 모달창 배경 클릭하면 꺼지는 기능 구현하기
 - [x] TypeScript 로 변경 ⚡
+- [x] LightHouse 기준 웹 성능 100%
 <!--
 ## Git Commit Message
 
