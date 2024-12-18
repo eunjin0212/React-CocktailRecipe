@@ -1,6 +1,6 @@
-# React-CocktailRecipe
+# 당신의 눈에 치얼스 🍸
 
-React-Hooks를 사용해 API를 받아 멋진 칵테일 레시피 웹을 만들자
+칵테일 레시피 Open API를 받아 멋진 칵테일 레시피 웹을 만들자
 
 [레시피 API](https://www.thecocktaildb.com/api.php)
 
