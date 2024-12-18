@@ -11,22 +11,14 @@
 > - Update 2022. 11. 08
 > - Update 2023. 07. 02
 
-- Api 사용
-- Main 랜덤 칵테일 리스트
+## Features
+- Main
+  - 오늘의 칵테일 (렌덤)
+  - 검색 필드
+- Search (ingrdient, name)
+  - 검색 결과 클릭 시, 상세 모달 노출
 
-  > - Search ingrdient, name
-  > - 눌렀을 때 Detail 화면 모든 정보
-
-- git commit message 신경쓰기
-
-## Hooks
-
-> - useMemo : 리턴값을 기억 []배열의 요소가 바뀌기 전까지
-> - useCallback : 함수 자체를 기억해뒀다가 재실행될 때 다시 실행되는 것을 막아줌 []배열의 요소가 바뀌기 전까지 기억
-> - useState를 이용해서 바뀌는 Data 받기
-> - useParams : Router에 `:속성`을 match로 가져올 수 있음 (Detail page에서 클릭한 칵테일의 id를 useParams으로 넘겨서 Api를 받아옴)
-
-## Check List (Update 23.07.02)
+## Check List (Update 24.12.18)
 
 - [x] 리스트 그리드 디스플레이로 변경
 - [x] 디테일 스크린 모달창으로 만들기
