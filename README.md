@@ -1,5 +1,7 @@
 # 당신의 눈에 치얼스 🍸
 
+![img](https://github.com/user-attachments/assets/510ef615-35fe-4c5b-a397-b6d4b7d6187a)
+
 칵테일 레시피 Open API를 받아 멋진 칵테일 레시피 웹을 만들자
 
 [레시피 API](https://www.thecocktaildb.com/api.php)
